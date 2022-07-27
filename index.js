@@ -1,19 +1,16 @@
 const fs = require('fs');
 
 console.log(`Hello Node.js v${process.versions.node}!`);
-readFile();
-function saveToFile(arrayBuffer) {
-  fs.writeFile(
-    './btos.7z',
-    Buffer.from(arrayBuffer.split(','), 'binary'),
-    (err) => {
-      if (err) {
-        console.log('There was an error writing the image');
-      } else {
-        console.log('Written File :');
-      }
+// readFile();
+readFilejson();
+function saveToFile(array) {
+  fs.writeFile('./data16.7z', Buffer.from(array, 'binary'), (err) => {
+    if (err) {
+      console.log('There was an error writing the image');
+    } else {
+      console.log('Written File :');
     }
-  );
+  });
 }
 
 function readFile() {
@@ -25,4 +22,16 @@ function readFile() {
     console.log(buff.byteLength);
     saveToFile(buff.join(','));
   });
+}
+
+function readFilejson() {
+  // const fs.readFileSync('./test.zip', null).buffer;
+  const data = fs.readFileSync('./data (16).txt');
+  const d = JSON.parse(data);
+  let arr = [];
+  for (let data of Object.keys(d)) {
+    arr.push(data.split(','));
+  }
+  // console.log(arr);
+  saveToFile(arr);
 }
